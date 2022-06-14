@@ -1,0 +1,46 @@
+/* Login page styling */
+
+*{
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #E4B1A5;
+    position: relative;
+    height: 98vh;
+}
+
+#siteTitle{
+    text-align: center;
+    font-family:fantasy;
+}
+
+#widget_container{
+    display:flex;
+}
+
+
+#icon_container, #form_container{
+    display:flex;
+    align-items: center;
+    justify-content:center;
+    width: 500px;
+    height: 550px;
+
+    border: 5px;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+    border-radius: 5px;
+    margin: 0 auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+
+footer{
+    background-color: #EBDACC;
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
+    text-align: center;
+}
+
