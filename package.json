@@ -20,7 +20,8 @@
   "homepage": "https://github.com/juanca-jimi/Widgets-Dashboard#readme",
   "dependencies": {
     "express": "^4.18.1",
-    "mongodb": "^4.7.0"
+    "mongodb": "^4.7.0",
+    "mongoose": "^6.3.8"
   },
   "devDependencies": {
     "nodemon": "^2.0.16"
