@@ -9,6 +9,7 @@ const express = require('express'),
       passportLocalMongoose = require('passport-local-mongoose');
 //--------------------------------------------------------------------
 
+let PORT = process.env.PORT || 8080;
 
 //TODO: encrypt url
 //Due to security, this url is only for storing the username and passwords
@@ -17,10 +18,10 @@ const url = 'mongodb+srv://Team4:7vap3lwvmEM24GBm@widgets-dash.nlgo8ag.mongodb.n
       app = express();
 
 
-mongoose.set('useNewUrlParser', true);
-mongoose.set('useFindAndModify', false);
-mongoose.set('useCreateIndex', true);
-mongoose.set('useUnifiedTopology', true);
+//mongoose.set('useNewUrlParser', true);
+//mongoose.set('useFindAndModify', false);
+//mongoose.set('useCreateIndex', true);
+//mongoose.set('useUnifiedTopology', true);
 mongoose.connect(url)
 
 
