@@ -19,9 +19,13 @@
   },
   "homepage": "https://github.com/juanca-jimi/Widgets-Dashboard#readme",
   "dependencies": {
+    "ejs": "^3.1.8",
     "express": "^4.18.1",
     "mongodb": "^4.7.0",
-    "mongoose": "^6.3.8"
+    "mongoose": "^6.3.8",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^7.1.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.16"

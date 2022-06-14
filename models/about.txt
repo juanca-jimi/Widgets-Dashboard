@@ -1,9 +1,8 @@
-A schema lets you define the structure of an entry into the collection.
+In Mongoose, you need to use models to create, read, update, or delete items from a MongoDB collection.
+
+Moreover, a schema lets you define the structure of an entry into the collection.
 The entry is called a document in the db
 
 NOTE:
 A collection is synonymous to a table in a relational db
 A document is synonymous to a row in a relational db
-
-In Mongoose, you need to use models to create, read, update, or delete items from a MongoDB collection.
-
