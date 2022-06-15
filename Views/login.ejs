@@ -26,6 +26,9 @@
         <img src="../imagesXicons/icon.png" height="600" width="600" />
       </div>
       <div id="form_container" class="float_child">
+        <% if (messages.error) { %>
+          <%= messages.error %>
+        <% } %> 
         <form id="create_form" action="result.html" method="GET">
           <div class="form-group">
             <label>Please enter your name</label>
