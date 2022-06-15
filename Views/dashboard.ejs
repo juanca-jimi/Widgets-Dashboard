@@ -5,6 +5,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TheWidgetWebsite</title>
+    <!-- bootstrap link -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+    <!-- masonry link -->
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
+      integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D"
+      crossorigin="anonymous"
+      async
+    ></script>
+
     <!-- CSS link -->
     <link rel="stylesheet" href="../CSS/dashboard.css" />
 
@@ -35,12 +51,15 @@
           <ul
             class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
           >
-            <li>
-              <a href="#" class="nav-link px-2 link-secondary">Overview</a>
+            <li class="nav-link px-2 link-dark">
+              <a href="login.html">LogIn</a>
             </li>
-            <li><a href="#" class="nav-link px-2 link-dark">LogIn</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">Dashboard</a></li>
-            <li><a href="#" class="nav-link px-2 link-dark">Settings</a></li>
+            <li class="nav-link px-2 link-dark">
+              <a href="dashboard.html">Dashboard</a>
+            </li>
+            <li class="nav-link px-2 link-dark">
+              <a href="settings.html">Settings</a>
+            </li>
           </ul>
 
           <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
@@ -83,11 +102,8 @@
       </div>
     </header>
 
-    <div
-      id="profile_pic"
-      class="container mt-4 mb-4 p-3 d-flex justify-content-center"
-    >
-      <div class="card p-4">
+    <div id="cards_container">
+      <div id="profile_card" class="card py-4">
         <div
           class="image d-flex flex-column justify-content-center align-items-center"
         >
@@ -97,7 +113,59 @@
           <span class="name mt-3">Test McTesty</span>
           <span class="idd">@test</span>
           <div class="d-flex mt-2">
-            <button class="btn1 btn-dark">Edit Profile</button>
+            <button class="btn1 btn-dark">
+              <a href="settings.html">Edit Profile</a>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="masonry" class="row">
+        <div class="col-sm-6 col-lg-4 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Card title that wraps to a new line</h5>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-4 mb-4">
+          <div class="card p-3"></div>
+        </div>
+
+        <div class="col-sm-6 col-lg-4 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-4 mb-4">
+          <div class="card"></div>
+        </div>
+
+        <div class="col-sm-6 col-lg-4 mb-4">
+          <div class="card text-center">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-4 mb-4">
+          <div class="card"></div>
+        </div>
+
+        <div class="col-sm-6 col-lg-4 mb-4">
+          <div class="card p-3 text-end"></div>
+        </div>
+
+        <div class="col-sm-6 col-lg-4 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Card title</h5>
+            </div>
           </div>
         </div>
       </div>
