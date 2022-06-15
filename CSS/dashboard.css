@@ -64,7 +64,7 @@ body{
     height: 40px;
     width: 150px;
     border: none;
-    background-color: #000;
+    background-color: #8F542E;
     color: #aeaeae;
     font-size: 15px
 }
@@ -83,4 +83,11 @@ hr .new1 {
     border: 1px solid
 }
 
+header{
+    background-color: #EBDACC;
+}
+
+input{
+    background-color: #EBDACC !important;;
+}
 

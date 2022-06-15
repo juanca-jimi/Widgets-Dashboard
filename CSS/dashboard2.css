@@ -1,0 +1,67 @@
+* {
+    box-sizing: border-box;
+  }
+
+  .bordered_box,
+  .left_children {
+    border: 1px solid black;
+  }
+
+  #left {
+    width: 25%;
+  }
+
+  #right {
+    width: 70%;
+  }
+
+  main {
+    display: flex;
+    justify-content: space-around;
+    height: 95vh;
+  }
+
+  .box {
+    height: 100%;
+  }
+
+  #profile_pic {
+    height: 25%;
+  }
+
+  #bio {
+    height: 75%;
+  }
+  #top_right_child {
+    height: 20%;
+  }
+
+  #bottom_right_child {
+    height: 75%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  #right {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .api_box {
+    height: 49%;
+    width: 32%;
+  }
+
+  header{
+    background-color: #EBDACC;
+}
+
+input{
+    background-color: #EBDACC !important;;
+}
+body{
+    background-color: #E4B1A5;
+}

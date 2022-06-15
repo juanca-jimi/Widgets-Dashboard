@@ -43,7 +43,7 @@ h1{
 }
 
 footer{
-
+    /* display: flex; */
     background-color: #EBDACC;
     position: absolute;
     width: 100%;
@@ -62,7 +62,22 @@ footer{
 
 }
 
-input{
-    color: #EBDACC;
+.footer-p{
+    width: 50%;
+    text-align: center;
+    /* display: inline-block; */
 }
 
+.w-100 , .btn , .btn-primary , .btn-lg{
+    background-color: #8F542E !important;
+}
+
+input{
+    background-color: #EBDACC !important;;
+}
+
+#or_separator{
+    display:flex;
+    justify-content: space-between;
+
+}
