@@ -1,4 +1,3 @@
-
 //REQUIRE STATEMENTS--------------------------------------------------
 require('dotenv').config()
 const express = require('express'),
@@ -11,6 +10,9 @@ const express = require('express'),
 //--------------------------------------------------------------------
 
 let PORT = process.env.PORT || 8080;
+app.set("view engine", "ejs");
+
+
 //TODO: encrypt url
 //Due to security, this url is only for storing the username and passwords
 const url = 'mongodb+srv://Team4:7vap3lwvmEM24GBm@widgets-dash.nlgo8ag.mongodb.net/?retryWrites=true&w=majority',
@@ -33,7 +35,7 @@ db.on('error', err => {console.error('connection error:', err)})
 //Body parser must be placed before CRUD operations
 app.use(express.urlencoded({extended: true }))
 app.listen(3000, function () {console.log("listening on 3000");});
-app.set("view engine", "ejs");
+
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -46,10 +48,10 @@ passport.deserializeUser(User.deserializeUser());
 //HOME PAGE
 app.get("/", (req, res) => {res.render("home")});
 
-//SHOW SECRET PAGE
-app.get("/secret", isLoggedIn, function (req, res) {
-  res.render("secret");
-});
+// //SHOW SECRET PAGE
+// app.get("/secret", isLoggedIn, function (req, res) {
+//   res.render("secret");
+// });
 
 //REGISTER FORM or sign up page
 app.get("/register", function (req, res) {
