@@ -28,11 +28,8 @@
     <script defer src="../JavascriptFiles/dashboard.js"></script>
   </head>
   <body>
-    <script>
-
-      console.log(quotes)
-
-    </script>
+    <!-- <%= console.log(quotes)%> -->
+    
 
     <header class=" mb-3 border-bottom">
       <div class="container">
@@ -110,6 +107,7 @@
         </div>
       </div>
     </header>
+    
     <main>
       <section class="box bordered_box" id="left">
         <div id="profile_pic" class="left_children">
@@ -181,7 +179,11 @@
           <div class="api_box bordered_box">
             <div class="card"></div>
             <div id="quotes-api" class="card_body">
-              
+              <% for(var i = 0; i < quotes.length; i++) {%>
+                <p><%=quotes[i].q%></p>
+                <p><%=quotes[i].a%></p>
+                <% } %>
+         
             </div>
           </div>
           <div class="api_box bordered_box">
