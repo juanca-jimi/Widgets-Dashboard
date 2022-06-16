@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TheWidgetWebsite</title>
+    <title>Dashboard</title>
     <!-- bootstrap link -->
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
@@ -12,8 +12,8 @@
       integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
       crossorigin="anonymous"
     />
-    <!-- masonry link -->
 
+    <!-- masonry link -->
     <script
       src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
       integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D"
@@ -25,17 +25,10 @@
     <link rel="stylesheet" href="../CSS/dashboard.css" />
 
     <!-- JS link -->
-    <script defer src="../JavaScript/widget.js"></script>
+    <script defer src="../JavascriptFiles/dashboard.js"></script>
   </head>
   <body>
-
-
-    <form action="/logout?_method=DELETE" method="POST">
-      <button type="submit">Logout</button>
-    </form>
-
-
-    <header class="p-3 mb-3 border-bottom">
+    <header class=" mb-3 border-bottom">
       <div class="container">
         <div
           class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"
@@ -67,6 +60,9 @@
             <li class="nav-link px-2 link-dark">
               <a href="settings.html">Settings</a>
             </li>
+            <form action="/logout?_method=DELETE" method="POST">
+              <button type="submit">Logout</button>
+            </form>
           </ul>
 
           <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
@@ -108,74 +104,116 @@
         </div>
       </div>
     </header>
-
-    <div id="cards_container">
-      <div id="profile_card" class="card py-4">
-        <div
-          class="image d-flex flex-column justify-content-center align-items-center"
-        >
-          <button class="btn btn-secondary">
-            <img src="../imagesXicons/pic1.png" height="100" width="100" />
-          </button>
-          <span class="name mt-3">Test McTesty</span>
-          <span class="idd">@test</span>
-          <div class="d-flex mt-2">
-            <button class="btn1 btn-dark">
-              <a href="settings.html">Edit Profile</a>
-            </button>
+    <main>
+      <section class="box bordered_box" id="left">
+        <div id="profile_pic" class="left_children">
+          <div
+            class="image d-flex flex-column justify-content-center align-items-center"
+          >
+            <img
+              src="../imagesXicons/profile_pic.png"
+              height="150"
+              width="150"
+            />
+            <span id="profile_name" class="name mt-3">Test McTesty</span>
+            <span id="alias" class="idd">@test</span>
+              <button class="btn1 btn-dark">
+                <a href="settings.html">Edit Profile</a>
+              </button>
+            </div>
           </div>
         </div>
+        <div id="carosel" class="left_children carousel slide" data-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active" data-bs-interval="5000">
+              <img class="d-block w-100" src="../imagesXicons/carosel-1.jpg" alt="First slide">
+            </div>
+            <div class="carousel-item" data-bs-interval="5000">
+              <img class="d-block w-100" src="../imagesXicons/carosel-2.jpg" alt="Second slide">
+            </div>
+            <div class="carousel-item" data-bs-interval="5000">
+              <img class="d-block w-100" src="../imagesXicons/carosel-3.jpg" alt="Third slide">
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="box" id="right">
+        <div id="top_right_child" class="bordered_box">
+          <div class="card_bookmark">
+            <h2 id="bookmark">My Bookmarks</h2>
+          </div>
+          <div class="card_body">
+            <textarea></textarea>
+          </div>
+        </div>
+        <div id="bottom_right_child">
+          <div class="api_box bordered_box ">
+            <div class="card page-content page-container d-flex" id="page-content">
+              <h2 class="toDo">My ToDo List</h2>
+            </div>
+              <div class="add-items d-flex"> <input type="text" class="form-control todo-list-input" placeholder="What do you need to do today?"> <button class="add btn btn-primary font-weight-bold todo-list-add-btn">Add</button> </div>
+              <div class="list-wrapper">
+                  <ul class="d-flex flex-column-reverse todo-list">
+                      <li>
+                          <div class="form-check"> <label class="form-check-label"> <input class="checkbox" type="checkbox"> buy more paint brushes? <i class="input-helper"></i></label> </div> <i class="remove mdi mdi-close-circle-outline"></i>
+                      </li>
+                      <li class="completed">
+                          <div class="form-check"> <label class="form-check-label"> <input class="checkbox" type="checkbox" checked=""> call the vet <i class="input-helper"></i></label> </div> <i class="remove mdi mdi-close-circle-outline"></i>
+                      </li>
+                      <li>
+                          <div class="form-check"> <label class="form-check-label"> <input class="checkbox" type="checkbox"> i shouldn't eat rice this week? <i class="input-helper"></i></label> </div> <i class="remove mdi mdi-close-circle-outline"></i>
+                      </li>
+                      <li class="completed">
+                          <div class="form-check"> <label class="form-check-label"> <input class="checkbox" type="checkbox" checked=""> Call Rampbo <i class="input-helper"></i></label> </div> <i class="remove mdi mdi-close-circle-outline"></i>
+                      </li>
+                      <li>
+                          <div class="form-check"> <label class="form-check-label"> <input class="checkbox" type="checkbox"> Print bills <i class="input-helper"></i></label> </div> <i class="remove mdi mdi-close-circle-outline"></i>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+          <div class="api_box bordered_box">
+            <div class="card"></div>
+            <div class="card_body">
+              
+            </div>
+          </div>
+          <div class="api_box bordered_box">
+            <div class="card"></div>
+            <div class="card_body"></div>
+          </div>
+          <div class="api_box bordered_box">
+            <div class="card_note">
+              <h2>My Notes</h2>
+            </div>
+            <div class="card_body">
+              <textarea></textarea>
+            </div>
+          </div>
+          <div class="api_box bordered_box">
+            <div class="card"></div>
+            <div class="card_body"></div>
+          </div>
+          <div class="api_box bordered_box">
+            <div class="card"></div>
+            <div class="card_body"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="-4 border-top">
+      <div id="footer-p" class="d-flex justify-content-around">
+        <p>TheWidgetWebsite©2022<p/>
+        <p>About</p>     
+        <p>Accesibility</p>  
+        <p>User Agreement</p>
+        <p>Privacy Policy</p>
+        <p>Support</p>     
+        <p>Guidelines</p>  
+        <p>Settings</p>
       </div>
+    </footer>
 
-      <div id="masonry" class="row">
-        <div class="col-sm-6 col-lg-4 mb-4">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Card title that wraps to a new line</h5>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-sm-6 col-lg-4 mb-4">
-          <div class="card p-3"></div>
-        </div>
-
-        <div class="col-sm-6 col-lg-4 mb-4">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-sm-6 col-lg-4 mb-4">
-          <div class="card"></div>
-        </div>
-
-        <div class="col-sm-6 col-lg-4 mb-4">
-          <div class="card text-center">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-sm-6 col-lg-4 mb-4">
-          <div class="card"></div>
-        </div>
-
-        <div class="col-sm-6 col-lg-4 mb-4">
-          <div class="card p-3 text-end"></div>
-        </div>
-
-        <div class="col-sm-6 col-lg-4 mb-4">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
   </body>
 </html>
