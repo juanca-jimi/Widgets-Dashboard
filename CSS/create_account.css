@@ -1,0 +1,31 @@
+/* Signin page styling */
+*{
+    box-sizing: border-box;
+    margin-bottom: 0%;
+}
+
+body{
+    background-color: #E4B1A5;
+    position: relative;
+    height: 90vh;
+    margin:auto;   
+}
+
+#main{
+    display:flex;
+}
+
+
+#icon, #form_id{
+    display:flex;
+    align-items: center;
+    justify-content:center;
+    width: 800px;
+    height: 771px;
+}
+
+#create_form{
+    width: 550px;
+    height: 450px;
+    margin: auto;
+}
