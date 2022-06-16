@@ -17,7 +17,8 @@ function fetchWeather(zip) {
     })
     .then((data) => console.log(data));
 }
-fetchWeather("75204");
+//fetchWeather("75204");
+module.exports = { fetchWeather };
 
 /*
 {
