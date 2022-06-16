@@ -25,7 +25,7 @@ function initialize(passport, getUserByEmail, getUserbyId){
 
     //below our password field defaults to password which is 
     //what our field is called, therefore not explicitly needed 
-    passport.use(new LocalStrategy({usernameField: 'email'}), authenticateUser)
+    passport.use(new LocalStrategy({usernameField: 'email'}, authenticateUser))
     passport.serializeUser((user, done) => { done(null, user.id)  })
     passport.deserializeUser((id, done) => { 
         return done(null, getUserbyId(id))

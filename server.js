@@ -1,5 +1,7 @@
 //REQUIRE STATEMENTS--------------------------------------------------
-require('dotenv').config()
+if (process.env.NODE_ENV !== 'production'){
+  require('dotenv').config()
+}
 const express = require('express'),
       Signup = require('./models/Signup'),
       mongoose = require('mongoose'),
@@ -10,50 +12,54 @@ const express = require('express'),
       bcrypt = require('bcrypt'),
       passportLocalMongoose = require('passport-local-mongoose'),
       methodOverride = require('method-override'),
-      flash = require('express-flash');
-const { session } = require('passport');
+      flash = require('express-flash'),
+      session = require('express-session');
+//const { session, authenticate } = require('passport');
 
 //--------------------------------------------------------------------
 
 //TODO: encrypt url
 //Due to security, this url is only for storing the username and passwords
-const url = 'mongodb+srv://Team4:7vap3lwvmEM24GBm@widgets-dash.nlgo8ag.mongodb.net/?retryWrites=true&w=majority',
-      db = mongoose.connection,
+const url = process.env.USER_DB_CONNECTION,      
       app = express();
 
-      mongoose.connect(url)
+mongoose.connect(url, {useNewUrlParser: true})
+const db = mongoose.connection;
+//To test whether the connection has succeeded or not------------
+db.once('open', _ => {console.log('Database connected...')})
+db.on('error', err => {console.error('connection error:', err)})
+//---------------------------------------------------------------
+
+
 
 initializePassport(
   passport, 
-  email => {
-  User. //TODOLfind the user based on the email., 
-  },
-  id => {
-
-  }
+  email => login.find(login => login.email === email),
+  password => login.find(login => login.password === password)
 )
+
 
 app.set("view engine", "ejs");
 //Body parser must be placed before CRUD operations
-app.use(express.urlencoded({extended: true }))
+app.use(express.urlencoded({extended: false }))
 app.use(flash())
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false
 }))
+app.use(passport.initialize())
 app.use(passport.session())
 app.use(methodOverride('_method'))
-app.use(cors())
 
 //HOME PAGE
 //If the user is already authenticated, they will be directored to their dashboard
 app.get("/", checkAuthenticated, (req, res) => {
-  res.render("login.ejs")
+  res.render("./login")
 });
 
 app.get("/login", checkNotAuthenticated, function (req, res) {
-  res.render("login.ejs");
+  res.render("login");
 });
 
 
@@ -67,11 +73,24 @@ app.post("/login", checkNotAuthenticated, passport.authenticate("local", {
 
 //REGISTER FORM or sign up page
 app.get("/register", checkNotAuthenticated, function (req, res) {
-  res.render("register.ejs");
+  res.render("register");
+  const newUser = new Signup({
+    first_name: String,
+    middle_name: String,
+    last_name: String,
+    email: String,
+    phone_number: Number,
+    birthday: String, 
+    password: String,
+  })
+  newUser.save(function (error, document){
+    if (err) console.error(err)
+    console.log(document)
+  })
 });
 
 // Handling user signup
-app.post("/register", checkNotAuthenticated, function (req, res) {
+app.post("/register", checkNotAuthenticated, async function (req, res) {
   try {
     //Asynchronous code
     //This uses the bcrypt npm library to hash the passwords
@@ -107,24 +126,15 @@ app.delete('/logout', (req,res) => {
 
 
 
-//To test whether the connection has succeeded or not------------
-db.once('open', _ => {console.log('Database connected:', url)})
-db.on('error', err => {console.error('connection error:', err)})
-//---------------------------------------------------------------
 
 
 
 
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
 
+// passport.use(new LocalStrategy({usernameField: 'email'}, authenticateUser));
+// passport.serializeUser(User.serializeUser());
+// passport.deserializeUser(User.deserializeUser());
 
-
-// //SHOW SECRET PAGE
-// app.get("/secret", isLoggedIn, function (req, res) {
-//   res.render("secret");
-// });
 
 
 
@@ -146,7 +156,7 @@ function checkAuthenticated(req, res, next) {
 
 function checkNotAuthenticated(req, res, next){
   if(req.isAuthenticated()){
-    return res.redirect('/')
+    return res.redirect('/dashboard.ejs')
   }
   next()
 }
@@ -154,18 +164,18 @@ function checkNotAuthenticated(req, res, next){
 
 
 
-function saveSignup(signup){
-  const s = new Signup(signup)
-  return s.save()
-}
-saveSignup({
-  first_name: test,
-  middle_initial: test,
-  last_name: test,
-  email: test,
-  phone_number: test,
-  password: test,
-  birthday: test,
-})
-.then(doc => { console.log(doc)})
-.catch(error => { console.error(error)})
+// function saveSignup(signup){
+//   const s = new Signup(signup)
+//   return s.save()
+// }
+// saveSignup({
+//   first_name: test,
+//   middle_initial: test,
+//   last_name: test,
+//   email: test,
+//   phone_number: test,
+//   password: test,
+//   birthday: test,
+// })
+// .then(doc => { console.log(doc)})
+// .catch(error => { console.error(error)})
