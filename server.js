@@ -55,11 +55,11 @@ app.use(methodOverride('_method'))
 //HOME PAGE
 //If the user is already authenticated, they will be directored to their dashboard
 app.get("/", checkAuthenticated, (req, res) => {
-  res.render("./login")
+  res.render("login",{})
 });
 
-app.get("/login", checkNotAuthenticated, function (req, res) {
-  res.render("login");
+app.get("login", checkNotAuthenticated, function (req, res) {
+  res.render("login", {});
 });
 
 
@@ -140,7 +140,7 @@ app.delete('/logout', (req,res) => {
 
 var port = process.env.PORT || 3000;
 app.listen(port, function () {
-   console.log("Server Has Started!");
+   console.log("Server has started on port " + port);
 });
 
 
