@@ -7,13 +7,15 @@ const express = require('express'),
       mongoose = require('mongoose'),
       login = require('./models/Login'),
       passport = require('passport'),
-      initializePassport = require('./JavascriptFiles/passport-config'),   
+      initializePassport = require('./passport-config'),   
       cors = require('cors'),
       bcrypt = require('bcrypt'),
       passportLocalMongoose = require('passport-local-mongoose'),
       methodOverride = require('method-override'),
       flash = require('express-flash'),
-      session = require('express-session');
+      session = require('express-session'),
+ { getapi } = require('./JavascriptFiles/quotes');
+
 //const { session, authenticate } = require('passport');
 
 //--------------------------------------------------------------------
@@ -39,6 +41,8 @@ initializePassport(
 )
 
 
+
+
 app.set("view engine", "ejs");
 //Body parser must be placed before CRUD operations
 app.use(express.urlencoded({extended: false }))
@@ -51,6 +55,8 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 app.use(methodOverride('_method'))
+app.use(express.static('./public'))
+
 
 //HOME PAGE
 //If the user is already authenticated, they will be directored to their dashboard
@@ -58,7 +64,7 @@ app.get("/", checkAuthenticated, (req, res) => {
   res.render("login",{})
 });
 
-app.get("login", checkNotAuthenticated, function (req, res) {
+app.get("/login", checkNotAuthenticated, function (req, res) {
   res.render("login", {});
 });
 
@@ -73,7 +79,7 @@ app.post("/login", checkNotAuthenticated, passport.authenticate("local", {
 
 //REGISTER FORM or sign up page
 app.get("/register", checkNotAuthenticated, function (req, res) {
-  res.render("register");
+  res.render("create_account");
   const newUser = new Signup({
     first_name: String,
     middle_name: String,
@@ -120,6 +126,15 @@ app.delete('/logout', (req,res) => {
   res.redirect('/login')
 })
 
+app.get("/dashboard",  async function (req, res ){
+  const quotes = await getapi();
+
+  res.render('dashboard', { quotes })
+
+
+
+})
+
 
 
 
@@ -149,14 +164,15 @@ app.listen(port, function () {
 
 
 function checkAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) return next();
-  
-  res.redirect("/login.ejs");
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect("/login");
 }
 
 function checkNotAuthenticated(req, res, next){
   if(req.isAuthenticated()){
-    return res.redirect('/dashboard.ejs')
+    return res.redirect('/dashboard')
   }
   next()
 }
