@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+
+    
+
+    <!-- bootstrap link -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+
+    <!-- masonry link -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
+      integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D"
+      crossorigin="anonymous"
+      async
+    ></script>
+
+    <!-- CSS link -->
+    <link rel="stylesheet" href="../CSS/dashboard.css" />
+
+    <!-- JS link -->
+    <script defer src="../JavascriptFiles/dashboard.js"></script>
+  </head>
+  <body>
+    <header class=" mb-3 border-bottom">
+      <div class="container">
+        <div
+          class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"
+        >
+          <a
+            href="/"
+            class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none"
+          >
+            <svg
+              class="bi me-2"
+              width="40"
+              height="32"
+              role="img"
+              aria-label="Bootstrap"
+            >
+              <use xlink:href="#bootstrap"></use>
+            </svg>
+          </a>
+
+          <ul
+            class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
+          >
+            <li class="nav-link px-2 link-dark">
+              <a href="login.html">LogIn</a>
+            </li>
+            <li class="nav-link px-2 link-dark">
+              <a href="dashboard.html">Dashboard</a>
+            </li>
+            <li class="nav-link px-2 link-dark">
+              <a href="settings.html">Settings</a>
+            </li>
+            <form action="/logout?_method=DELETE" method="POST">
+              <button type="submit">Logout</button>
+            </form>
+          </ul>
+
+          <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+            <input
+              type="search"
+              class="form-control"
+              placeholder="Search..."
+              aria-label="Search"
+            />
+          </form>
+
+          <div class="dropdown text-end">
+            <a
+              href="#"
+              class="d-block link-dark text-decoration-none dropdown-toggle"
+              id="dropdownUser1"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <img
+                src="../imagesXicons/pic1.png"
+                alt="mdo"
+                width="40"
+                height="40"
+                class="rounded-circle"
+              />
+            </a>
+            <ul
+              class="dropdown-menu text-small"
+              aria-labelledby="dropdownUser1"
+            >
+              <li><a class="dropdown-item" href="#">New project...</a></li>
+              <li><a class="dropdown-item" href="#">Settings</a></li>
+              <li><a class="dropdown-item" href="#">Profile</a></li>
+              <li><hr class="dropdown-divider" /></li>
+              <li><a class="dropdown-item" href="#">Sign out</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </header>
+    <main>
+      <section class="box bordered_box" id="left">
+        <div id="profile_pic" class="left_children">
+          <div
+            class="image d-flex flex-column justify-content-center align-items-center"
+          >
+            <img
+              src="../imagesXicons/profile_pic.png"
+              height="150"
+              width="150"
+            />
+            <span id="profile_name" class="name mt-3">Test McTesty</span>
+            <span id="alias" class="idd">@test</span>
+              <button class="btn1 btn-dark">
+                <a href="settings.html">Edit Profile</a>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div id="carosel" class="left_children carousel slide" data-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active" data-bs-interval="5000">
+              <img class="d-block w-100" src="../imagesXicons/carosel-1.jpg" alt="First slide">
+            </div>
+            <div class="carousel-item" data-bs-interval="5000">
+              <img class="d-block w-100" src="../imagesXicons/carosel-2.jpg" alt="Second slide">
+            </div>
+            <div class="carousel-item" data-bs-interval="5000">
+              <img class="d-block w-100" src="../imagesXicons/carosel-3.jpg" alt="Third slide">
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="box" id="right">
+        <div id="top_right_child" class="bordered_box">
+          <div class="card_bookmark">
+            <h2 id="bookmark">My Bookmarks</h2>
+          </div>
+          <div class="card_body">
+            <textarea></textarea>
+          </div>
+        </div>
+        <div id="bottom_right_child">
+          <div class="api_box bordered_box ">
+            <div class="card page-content page-container d-flex" id="page-content">
+              <h2 class="toDo">My ToDo List</h2>
+            </div>
+              <div class="add-items d-flex"> <input type="text" class="form-control todo-list-input" placeholder="What do you need to do today?"> <button class="add btn btn-primary font-weight-bold todo-list-add-btn">Add</button> </div>
+              <div class="list-wrapper">
+                  <ul class="d-flex flex-column-reverse todo-list">
+                      <li>
+                          <div class="form-check"> <label class="form-check-label"> <input class="checkbox" type="checkbox"> buy more paint brushes? <i class="input-helper"></i></label> </div> <i class="remove mdi mdi-close-circle-outline"></i>
+                      </li>
+                      <li class="completed">
+                          <div class="form-check"> <label class="form-check-label"> <input class="checkbox" type="checkbox" checked=""> call the vet <i class="input-helper"></i></label> </div> <i class="remove mdi mdi-close-circle-outline"></i>
+                      </li>
+                      <li>
+                          <div class="form-check"> <label class="form-check-label"> <input class="checkbox" type="checkbox"> i shouldn't eat rice this week? <i class="input-helper"></i></label> </div> <i class="remove mdi mdi-close-circle-outline"></i>
+                      </li>
+                      <li class="completed">
+                          <div class="form-check"> <label class="form-check-label"> <input class="checkbox" type="checkbox" checked=""> Call Rampbo <i class="input-helper"></i></label> </div> <i class="remove mdi mdi-close-circle-outline"></i>
+                      </li>
+                      <li>
+                          <div class="form-check"> <label class="form-check-label"> <input class="checkbox" type="checkbox"> Print bills <i class="input-helper"></i></label> </div> <i class="remove mdi mdi-close-circle-outline"></i>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+          <div class="api_box bordered_box">
+            <div class="card"></div>
+            <div class="card_body">
+              
+            </div>
+          </div>
+          <div class="api_box bordered_box">
+            <div class="card"></div>
+            <div class="card_body"></div>
+          </div>
+          <div class="api_box bordered_box">
+            <div class="card_note">
+              <h2>My Notes</h2>
+            </div>
+            <div class="card_body">
+              <textarea></textarea>
+            </div>
+          </div>
+          <div class="api_box bordered_box">
+            <div class="card"></div>
+            <div class="card_body"></div>
+          </div>
+          <div class="api_box bordered_box">
+            <div class="card"></div>
+            <div class="card_body"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="-4 border-top">
+      <div id="footer-p" class="d-flex justify-content-around">
+        <p>TheWidgetWebsite©2022<p/>
+        <p>About</p>     
+        <p>Accesibility</p>  
+        <p>User Agreement</p>
+        <p>Privacy Policy</p>
+        <p>Support</p>     
+        <p>Guidelines</p>  
+        <p>Settings</p>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+  </body>
+</html>

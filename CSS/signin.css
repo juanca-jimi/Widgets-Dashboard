@@ -1,0 +1,85 @@
+/* Signin page styling */
+*{
+    box-sizing: border-box;
+    margin-bottom: 0%;
+}
+
+body{
+    background-color: #E4B1A5;
+    position: relative;
+    height: 90vh;
+    margin:auto;
+
+    
+}
+
+#siteTitle{
+    text-align: center;
+    font-family:fantasy;
+}
+
+#widget_container{
+    display:flex;
+}
+
+
+#icon_container, #form_container{
+    display:flex;
+    align-items: center;
+    justify-content:center;
+    width: 800px;
+    height: 771px;
+}
+
+#create_form{
+    width: 550px;
+    height: 450px;
+    margin: auto;
+}
+
+h1{
+    text-align: center;
+    margin-top: 3%;
+}
+
+footer{
+    /* display: flex; */
+    background-color: #EBDACC;
+    position: absolute;
+    width: 100%;
+    margin-bottom: 0%;
+    text-align: center;
+}
+
+
+.or-separator {
+    margin-top: 12px;
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    padding: 0 4px;
+    -webkit-box-align: center;
+
+}
+
+.footer-p{
+    width: 50%;
+    text-align: center;
+    /* display: inline-block; */
+}
+
+.w-100 , .btn , .btn-primary , .btn-lg{
+    background-color: #8F542E !important;
+}
+
+input{
+    background-color: #EBDACC !important;;
+}
+
+#or_separator{
+    display:flex;
+    justify-content: space-between;
+
+}
+
+
