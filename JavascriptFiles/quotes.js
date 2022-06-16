@@ -8,6 +8,7 @@ async function getapi(url) {
   const response = await fetch(url);
   var data = await response.json();
   console.log(data);
+
   const quote = document.createElement("p");
   quote.innerHTML = data.q;
   quotesRender.appendChild(quote);
