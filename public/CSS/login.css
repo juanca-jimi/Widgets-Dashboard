@@ -8,9 +8,7 @@ body{
     background-color: #E4B1A5;
     position: relative;
     height: 90vh;
-    margin:auto;
-
-    
+    margin:auto;  
 }
 
 #siteTitle{
@@ -22,13 +20,15 @@ body{
     display:flex;
 }
 
+#form_container{
+    height: 756px; 
+}
 
 #icon_container, #form_container{
     display:flex;
     align-items: center;
     justify-content:center;
     width: 800px;
-    height: 771px;
 }
 
 #create_form{
@@ -73,7 +73,8 @@ footer{
 }
 
 input{
-    background-color: #EBDACC !important;;
+    background-color: #EBDACC !important;
+    color: #8F542E !important; 
 }
 
 #or_separator{

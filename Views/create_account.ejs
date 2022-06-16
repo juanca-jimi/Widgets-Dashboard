@@ -15,51 +15,136 @@
     <link rel="stylesheet" href="../CSS/create_account.css" />
   </head>
   <body>
+    <header>
+      <h1 id="siteTitle">TheWidgetWebsite</h1>
+    </header>
     <div id="main">
       <div id="icon">
         <img src="../imagesXicons/icon.png" height="600" width="600"">
       </div>
       <div id="form_id">
-        <form action="/register" method="POST">
-          <h1>Create New Account</h1>
-          <div>
-            <label for="first_name">First Name</label>
-            <input type="text" id="first_name" name="first_name" />
-          </div>
-          <div>
-            <label for="middle_name">Middle Name</label>
-            <input type="text" id="middle_name" name="middle_name" />
-          </div>
-          <div>
-            <label for="last_name">Last Name</label>
-            <input type="text" id="last_name" name="last_name" />
-          </div>
-          <div>
-            <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" />
-          </div>
-          <div>
-            <label for="phone_number">Phone Number</label>
+        <form id="create_account" action="dashboard.html" method="GET">
+          <h2>Create Account</h2>
+          <div class="form-group">
+            <label>First Name</label>
             <input
-              type="tel"
-              id="phone_number"
-              name="phone_number"
-              pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+              type="text"
+              style="color: #ebdacc"
+              class="form-control"
+              id="first_name"
               required
             />
-            <small>Format: 123-456-7890</small>
+          </div>
+          <div class="form-group">
+            <label>Middle Name</label>
+            <input
+              style="color: #ebdacc"
+              type="text"
+              class="form-control"
+              id="middle_name"
+              required
+            />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Last Name</label>
+              <input
+                style="color: #ebdacc"
+                type="text"
+                class="form-control"
+                id="last_name"
+              />
+            </div>
           </div>
           <div>
-            <label for="birthday">Birthday:</label>
-            <input type="date" id="birthday" name="birthday" />
+            <label>Email Address</label>
+            <input
+              type="email"
+              style="color: #ebdacc"
+              class="form-control"
+              id="email"
+              required
+            />
           </div>
-          <div>
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" />
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input
+              style="color: #ebdacc"
+              type="tel"
+              class="form-control"
+              id="phone"
+              required
+            />
+            <small>Format: 123-456-7890</small><br /><br />
           </div>
-          <button type="submit"><a href="/register">Register</a></button>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Birthday</label>
+              <input
+                style="color: #ebdacc"
+                type="date"
+                class="form-control"
+                id="birthday"
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Password</label>
+            <input
+              style="color: #ebdacc"
+              type="password"
+              class="form-control"
+              id="password"
+              required
+            />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Confirm Password</label>
+              <input
+                style="color: #ebdacc"
+                type="password"
+                class="form-control"
+                id="password2"
+              />
+            </div>
+          </div>
+          <div class="custom-control custom-checkbox my-1 mr-sm-2">
+            <input
+              style="color: #ebdacc"
+              type="checkbox"
+              class="custom-control-input"
+              id="customControlInline"
+              name="check_box"
+            />
+            <label class="custom-control-label" for="customControlInline"
+              >Remember password</label
+            >
+          </div>
+
+          <div class="col-md-12">
+            <button class="w-100 btn btn-primary btn-lg" type="submit">
+              Sign up to create new account
+            </button>
+          </div>
         </form>
       </div>
     </div>
+    <footer class="py-3 my-4 border-top">
+      <div id="footer-p" class="d-flex justify-content-around">
+        <p>TheWidgetWebsite©2022 | All rights reserved</p>
+        <p>About</p>
+        <p>Accesibility</p>
+        <p>User Agreement</p>
+        <p>Privacy Policy</p>
+        <p>Support</p>
+        <p>Guidelines</p>
+        <p>Settings</p>
+        <p>Send Feedback</p>
+      </div>
+    </footer>
   </body>
 </html>
