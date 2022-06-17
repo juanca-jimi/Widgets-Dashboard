@@ -179,7 +179,7 @@
             <div class="card">
               <h2><%=ranMeme.name%></h2>
               <div class="card_body">
-                  <img src="<%= ranMeme.url %>" alt="<%=ranMeme.name%>">
+                  <img id="memeUrl" src="<%= ranMeme.url %>" alt="<%=ranMeme.name%>">
               </div>
             </div>
          
@@ -188,14 +188,8 @@
             <div class="card_note">
               <h2 style="margin:0%">My Notes</h2>
             </div>
-            <div id="my_notes" style="height:87%" class="card_body">
-              <textarea style="font-family:'Courier New', Courier, monospace">
-                I shall be telling this with a sigh
-                Somewhere ages and ages hence:
-                Two roads diverged in a wood, and I—
-                I took the one less traveled by,
-                And that has made all the difference.
-              </textarea>
+            <div id="my_notes"  class="card_body">
+              <textarea id="noteText">CRUD (Create, Read, Update, Delete) is an acronym for ways one can operate on stored data. It is a mnemonic for the four basic functions of persistent storage. CRUD typically refers to operations performed in a database or datastore, but it can also apply to higher level functions of an application such as soft deletes where data is not actually deleted but marked as deleted via a status.</textarea>
             </div>
           </div>
           <div class="api_box bordered_box">
@@ -203,12 +197,12 @@
               <input id="weatherZip" placeholder="enter zip code to get weather" type="text">
               <div id="weatherDetailsContainer">
                 <% if(weatherDetails !== undefined) {%>
-                  <p id="weaTemp"><%= weatherDetails.main.temp %></p>
-                  <p id="feelsLike"><%= weatherDetails.main.feels_like %></p>
-                  <p id="minTemp"><%= weatherDetails.main.temp_min %></p>
-                  <p id="maxTemp"><%= weatherDetails.main.temp_max %></p>
-                  <p id="pressure"><%= weatherDetails.main.pressure %></p>
-                  <p id="humidity"><%= weatherDetails.main.humidity %></p>
+                  <p id="weaTemp">Temperature : <%= weatherDetails.main.temp %> F</p>
+                  <p id="feelsLike">Feels Like :<%= weatherDetails.main.feels_like %> F</p>
+                  <p id="minTemp">Min Temp :<%= weatherDetails.main.temp_min %> F</p>
+                  <p id="maxTemp">Max Temp :<%= weatherDetails.main.temp_max %> F</p>
+                  <p id="pressure">Pressure : <%= weatherDetails.main.pressure %> hPa</p>
+                  <p id="humidity">Humidity :<%= weatherDetails.main.humidity %> %</p>
                   <% } %>
               </div>
               
@@ -249,12 +243,12 @@
           .then(res => res.json())
           .then(data => {
             console.log(data);
-            const temp = data.main.temp;
-            const feelsLikeTemp = data.main.feels_like;
-            const minTempVal = data.main.temp_min
-            const maxTempVal = data.main.temp_max
-            const pressureVal = data.main.pressure
-            const humidityVal = data.main.humidity
+            const temp = "Temperature :" + data.main.temp + " F";
+            const feelsLikeTemp = "Feels Like : " + data.main.feels_like + " F";
+            const minTempVal = "Min Temp : " + data.main.temp_min + " F";
+            const maxTempVal = "Max Temp : " + data.main.temp_max + " F";
+            const pressureVal = "Pressure : " + data.main.pressure + " hPa";
+            const humidityVal = "Humidity : " + data.main.humidity + " %";
             const weatherContainer = document.getElementById("weatherDetailsContainer")
             if(weatherContainer.children.length !== 0) {
               document.getElementById("weaTemp").innerText = temp
@@ -267,12 +261,12 @@
             }
             else {
               weatherContainer.innerHTML = `
-                <p id="weaTemp">Temperature : ${temp} F</p>
-                <p id="feelsLike">Feels Like :  ${feelsLikeTemp} F</p>
-                <p id="minTemp">Min Temperature : ${minTempVal} F</p> 
-                <p id="maxTemp">Max Temperature : ${maxTempVal} F</p> 
-                <p id="pressure">Max Pressure : ${pressureVal} hPa</p> 
-                <p id="pressure">Humidity : ${humidityVal} %</p> 
+                <p id="weaTemp">${temp}</p> 
+                <p id="feelsLike">${feelsLikeTemp} F</p>
+                <p id="minTemp">${minTempVal} F</p> 
+                <p id="maxTemp">${maxTempVal} F</p> 
+                <p id="pressure">${pressureVal} hPa</p> 
+                <p id="pressure">${humidityVal} %</p> 
               `
             }
 
