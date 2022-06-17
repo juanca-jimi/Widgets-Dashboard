@@ -12,10 +12,10 @@
     crossorigin="anonymous"
   />
     <!-- CSS link -->
-    <link rel="stylesheet" href="CSS/login.css" />
+    <link rel="stylesheet" href="../CSS/login.css" />
 
     <!-- JS link -->
-    <script defer src="JavaScript/widget.js"></script>
+    <script defer src="../JavaScript/widget.js"></script>
   </head>
   <body>
     <header>
@@ -23,13 +23,13 @@
     </header>
     <div id="widget_container" class="float_container">
       <div id="icon_container" class="float_child">
-        <img src="imagesXicons/icon.png" height="600" width="600" />
+        <img src="../imagesXicons/icon.png" height="600" width="600" />
       </div>
       <div id="form_container" class="float_child">
-        <form id="create_form" action="result.html" method="GET">
+        <form id="create_form" action="dashboard.html" method="GET">
           <div class="form-group">
             <h2>Sign In</h2>
-            <label>Please enter your name</label>
+            <label>Please enter your first name</label>
             <input
               type="text"
               style="color: #EBDACC;"
@@ -39,10 +39,10 @@
             />
           </div>
           <div class="form-group">
-            <label>Please enter your Email</label>
+            <label>Please enter your email</label>
             <input
               style="color: #EBDACC;"
-              type="password"
+              type="email"
               class="form-control"
               id="password"
               required
@@ -54,7 +54,7 @@
               <label>Password</label>
               <input
                 style="color: #EBDACC;"
-                type="email"
+                type="password"
                 class="form-control"
                 id="email"
               />
@@ -95,7 +95,7 @@
     </div>
     <footer class="py-3 my-4 border-top">
       <div id="footer-p" class="d-flex justify-content-around">
-        <p>TheWidgetWebsite©2022<p/>
+        <p>TheWidgetWebsite©2022 | All rights reserved</p>
         <p>About</p>     
         <p>Accesibility</p>  
         <p>User Agreement</p>
@@ -103,7 +103,7 @@
         <p>Support</p>     
         <p>Guidelines</p>  
         <p>Settings</p>
-        </div>
+        <p>Send Feedback</p>
     </footer>
     <script>
       navigator.geolocation.getCurrentPosition((location) => {
