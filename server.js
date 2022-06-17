@@ -2,6 +2,8 @@
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
+
+const { log } = require("console");
 const express = require('express'),
       Signup = require('./models/Signup'),
       mongoose = require('mongoose'),
@@ -31,6 +33,11 @@ const express = require("express"),
   flash = require("express-flash"),
   session = require("express-session"),
   { getapi } = require("./JavascriptFiles/quotes"),
+  { getMemes } = require("./JavascriptFiles/memes"),
+  { fetchWeather } = require("./JavascriptFiles/weather"),
+  NodeGeocoder = require("node-geocoder");
+
+let userZipCode;
 
 //const { session, authenticate } = require('passport');
 
@@ -98,6 +105,11 @@ app.get("/login", checkNotAuthenticated, function (req, res) {
   res.render("login", {});
 });
 
+app.get("/weather", async (req, res) => {
+  const { zip } = req.query;
+  const weatherDetails = await fetchWeather(zip);
+  res.send(weatherDetails);
+});
 //Handling user login
 app.post("/login", checkNotAuthenticated, passport.authenticate("local", {
   successRedirect: "/dashboard",
@@ -150,10 +162,35 @@ app.delete("/logout", (req, res) => {
 });
 
 app.get("/dashboard", async function (req, res) {
+  console.log(userZipCode);
   const quotes = await getapi();
-  const memes = await getMemes();
-  const weather = await fetchWeather();
-  res.render("dashboard", { quotes, memes });
+  const memeZ = await getMemes();
+
+  let weatherDetails;
+
+  if (userZipCode !== undefined) {
+    weatherDetails = await fetchWeather(userZipCode);
+  }
+
+  res.render("dashboard", { quotes, memeZ: memeZ.data.memes, weatherDetails });
+});
+
+app.get("/location", async function (req, res) {
+  const { lat, lon } = req.query;
+
+  const options = {
+    provider: "google",
+
+    // Optional depending on the providers
+    apiKey: "AIzaSyCekD-YznjPaqB7mGgTjQ38P5XS3dxaXF4", // for Mapquest, OpenCage, Google Premier
+  };
+  const geocoder = NodeGeocoder(options);
+
+  const data = await geocoder.reverse({ lat, lon });
+  userZipCode = data[0].zipcode;
+  res.send({
+    success: "success",
+  });
 });
 
 // passport.use(new LocalStrategy({usernameField: 'email'}, authenticateUser));

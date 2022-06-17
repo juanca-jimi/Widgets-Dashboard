@@ -5,6 +5,7 @@ async function getMemes() {
   const response = await fetch(api_url);
   var data = await response.json();
   //console.log(data.data.memes[0]);
+  return data;
 }
 
 module.exports = { getMemes };
