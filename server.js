@@ -1,6 +1,6 @@
 //REQUIRE STATEMENTS--------------------------------------------------
-if (process.env.NODE_ENV !== 'production'){
-  require('dotenv').config()
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
 }
 const express = require('express'),
       Signup = require('./models/Signup'),
@@ -14,8 +14,23 @@ const express = require('express'),
       methodOverride = require('method-override'),
       flash = require('express-flash'),
       session = require('express-session'),
- { getapi } = require('./JavascriptFiles/quotes');
+      { getapi } = require('./JavascriptFiles/quotes'),
+      { getMemes } = require("./JavascriptFiles/memes"),
+      { fetchWeather } = require("./JavascriptFiles/weather");
 const { ObjectId } = require('mongodb');
+const express = require("express"),
+  Signup = require("./models/Signup"),
+  mongoose = require("mongoose"),
+  login = require("./models/Login"),
+  passport = require("passport"),
+  initializePassport = require("./passport-config"),
+  cors = require("cors"),
+  bcrypt = require("bcrypt"),
+  passportLocalMongoose = require("passport-local-mongoose"),
+  methodOverride = require("method-override"),
+  flash = require("express-flash"),
+  session = require("express-session"),
+  { getapi } = require("./JavascriptFiles/quotes"),
 
 //const { session, authenticate } = require('passport');
 
@@ -23,14 +38,18 @@ const { ObjectId } = require('mongodb');
 
 //TODO: encrypt url
 //Due to security, this url is only for storing the username and passwords
-const url = process.env.USER_DB_CONNECTION,      
-      app = express();
+const url = process.env.USER_DB_CONNECTION,
+  app = express();
 
-mongoose.connect(url, {useNewUrlParser: true})
+mongoose.connect(url, { useNewUrlParser: true });
 const db = mongoose.connection;
 //To test whether the connection has succeeded or not------------
-db.once('open', _ => {console.log('Database connected...')})
-db.on('error', err => {console.error('connection error:', err)})
+db.once("open", (_) => {
+  console.log("Database connected...");
+});
+db.on("error", (err) => {
+  console.error("connection error:", err);
+});
 //---------------------------------------------------------------
 
 
@@ -72,13 +91,12 @@ app.use(express.static('./public'))
 //HOME PAGE
 //If the user is already authenticated, they will be directored to their dashboard
 app.get("/", checkAuthenticated, (req, res) => {
-  res.render("login",{})
+  res.render("login", {});
 });
 
 app.get("/login", checkNotAuthenticated, function (req, res) {
   res.render("login", {});
 });
-
 
 //Handling user login
 app.post("/login", checkNotAuthenticated, passport.authenticate("local", {
@@ -109,7 +127,7 @@ app.post("/register", checkNotAuthenticated, async function (req, res) {
         //taking form input and pushing it to our DB
       first_name: req.body.first_name,
       middle_name: req.body.middle_name,
-      last_name:req.body.last_name,
+      last_name: req.body.last_name,
       email: req.body.email,
       phone_number: req.body.phone_number,
       birthday: req.body.birthday,
@@ -122,51 +140,30 @@ app.post("/register", checkNotAuthenticated, async function (req, res) {
   } catch (err)  {
     console.log(err)
     //unsuccessful registration leaves you in this page
-    res.redirect('/register')
+    res.redirect("/register");
   }
 });
 
-app.delete('/logout', (req,res) => {
-  req.logOut()
-  res.redirect('/login')
-})
+app.delete("/logout", (req, res) => {
+  req.logOut();
+  res.redirect("/login");
+});
 
-app.get("/dashboard",  async function (req, res ){
+app.get("/dashboard", async function (req, res) {
   const quotes = await getapi();
-
-  res.render('dashboard', { quotes })
-
-
-
-})
-
-
-
-
-
-
-
-
-
-
-
+  const memes = await getMemes();
+  const weather = await fetchWeather();
+  res.render("dashboard", { quotes, memes });
+});
 
 // passport.use(new LocalStrategy({usernameField: 'email'}, authenticateUser));
 // passport.serializeUser(User.serializeUser());
 // passport.deserializeUser(User.deserializeUser());
 
-
-
-
 var port = process.env.PORT || 3000;
 app.listen(port, function () {
-   console.log("Server has started on port " + port);
+  console.log("Server has started on port " + port);
 });
-
-
-
-
-
 
 function checkAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
@@ -175,15 +172,12 @@ function checkAuthenticated(req, res, next) {
   res.redirect("/login");
 }
 
-function checkNotAuthenticated(req, res, next){
-  if(req.isAuthenticated()){
-    return res.redirect('/dashboard')
+function checkNotAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return res.redirect("/dashboard");
   }
-  next()
+  next();
 }
-
-
-
 
 // function saveSignup(signup){
 //   const s = new Signup(signup)
