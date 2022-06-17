@@ -1,21 +1,20 @@
 const fetch = require("node-fetch");
 
 const apiKey = "7b905a6622af3dfb1106346482f144ab";
-function fetchWeather(zip) {
-  fetch(
-    "https://api.openweathermap.org/data/2.5/weather?zip=" +
-      zip +
-      ",us&appid=" +
-      apiKey
-  )
-    .then((response) => {
-      if (!response.ok) {
-        alert("No weather found.");
-        throw new Error("No weather found.");
-      }
-      return response.json();
-    })
-    .then((data) => console.log(data));
+
+async function fetchWeather(zip) {
+  try {
+    const response = await fetch(
+      "https://api.openweathermap.org/data/2.5/weather?units=imperial&zip=" +
+        zip +
+        ",us&appid=" +
+        apiKey
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log("No weather found ", error);
+  }
 }
 //fetchWeather("75204");
 module.exports = { fetchWeather };
