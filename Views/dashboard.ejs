@@ -43,17 +43,14 @@
             class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
           >
             <li class="nav-link px-2 link-dark">
-              <a href="login.html">LogIn</a>
+              <a href="login">Log Out</a>
             </li>
             <li class="nav-link px-2 link-dark">
-              <a href="dashboard.html">Dashboard</a>
+              <a href="dashboard">Dashboard</a>
             </li>
             <li class="nav-link px-2 link-dark">
-              <a href="settings.html">Settings</a>
+              <a href="settings">Settings</a>
             </li>
-            <form action="/logout?_method=DELETE" method="POST">
-              <button type="submit">Logout</button>
-            </form>
           </ul>
 
           <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
@@ -132,16 +129,22 @@
       <section class="box" id="right">
         <div id="top_right_child" class="bordered_box">
           <div class="card_bookmark">
-            <h2 id="bookmark">My Bookmarks</h2>
+            <h2 style="margin:0%" id="bookmark">My Bookmarks</h2>
           </div>
-          <div class="card_body">
-            <textarea id="bookmarkId"></textarea>
+          <div style="height:79%"  class="card_body">
+            <textarea style="font-family:'Courier New', Courier, monospace" id="bookmarkId">
+              https://www.facebook.com/
+              https://colorhunt.co/palette/c2ded1ece5c7cdc2ae354259
+              https://stackoverflow.com/questions/6669846/css-input-field-text-color-of-inputted-text
+              https://docs.google.com/document/d/1fW9vYHppZlS0XNaBIfR8Xfmktahg8n25XurjPMgGHmA/edit
+              https://getbootstrap.com/docs/4.0/components/carousel/
+            </textarea>
           </div>
         </div>
         <div id="bottom_right_child">
           <div class="api_box bordered_box ">
             <div class="card page-content page-container d-flex" id="page-content">
-              <h2 class="toDo">My ToDo List</h2>
+              <h2 style="margin:0%" class="toDo">My ToDo List</h2>
             </div>
               <div class="add-items d-flex"> <input type="text" class="form-control todo-list-input" placeholder="What do you need to do today?"> <button class="add btn btn-primary font-weight-bold todo-list-add-btn">Add</button> </div>
               <div class="list-wrapper">
@@ -155,9 +158,6 @@
                       <li>
                           <div class="form-check"> <label class="form-check-label"> <input class="checkbox" type="checkbox"> i shouldn't eat rice this week? <i class="input-helper"></i></label> </div> <i class="remove mdi mdi-close-circle-outline"></i>
                       </li>
-                      <li class="completed">
-                          <div class="form-check"> <label class="form-check-label"> <input class="checkbox" type="checkbox" checked=""> Call Rampbo <i class="input-helper"></i></label> </div> <i class="remove mdi mdi-close-circle-outline"></i>
-                      </li>
                       <li>
                           <div class="form-check"> <label class="form-check-label"> <input class="checkbox" type="checkbox"> Print bills <i class="input-helper"></i></label> </div> <i class="remove mdi mdi-close-circle-outline"></i>
                       </li>
@@ -168,8 +168,8 @@
             <div class="card"></div>
             <div id="quotes-api" class="card_body">
               <% for(var i = 0; i < quotes.length; i++) {%>
-                <p><%=quotes[i].q%></p>
-                <p><%=quotes[i].a%></p>
+                <p style="font-family:cursive"><%=quotes[i].q%></p>
+                <p style="font-family:cursive"><%=quotes[i].a%></p>
                 <% } %>
             </div>
           </div>
@@ -186,10 +186,16 @@
           </div>
           <div class="api_box bordered_box">
             <div class="card_note">
-              <h2>My Notes</h2>
+              <h2 style="margin:0%">My Notes</h2>
             </div>
-            <div class="card_body">
-              <textarea></textarea>
+            <div id="my_notes" style="height:87%" class="card_body">
+              <textarea style="font-family:'Courier New', Courier, monospace">
+                I shall be telling this with a sigh
+                Somewhere ages and ages hence:
+                Two roads diverged in a wood, and I—
+                I took the one less traveled by,
+                And that has made all the difference.
+              </textarea>
             </div>
           </div>
           <div class="api_box bordered_box">

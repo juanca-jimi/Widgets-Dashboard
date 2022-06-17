@@ -4,22 +4,25 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 const { log } = require("console");
-const express = require('express'),
-      Signup = require('./models/Signup'),
-      mongoose = require('mongoose'),
-      login = require('./models/Login'),
-      passport = require('passport'),
-      initializePassport = require('./passport-config'),   
-      cors = require('cors'),
-      bcrypt = require('bcrypt'),
-      passportLocalMongoose = require('passport-local-mongoose'),
-      methodOverride = require('method-override'),
-      flash = require('express-flash'),
-      session = require('express-session'),
-      { getapi } = require('./JavascriptFiles/quotes'),
-      { getMemes } = require("./JavascriptFiles/memes"),
-      { fetchWeather } = require("./JavascriptFiles/weather");
+const express = require("express"),
+  Signup = require("./models/Signup"),
+  mongoose = require("mongoose"),
+  login = require("./models/Login"),
+  passport = require("passport"),
+  initializePassport = require("./passport-config"),
+  cors = require("cors"),
+  bcrypt = require("bcrypt"),
+  passportLocalMongoose = require("passport-local-mongoose"),
+  methodOverride = require("method-override"),
+  flash = require("express-flash"),
+  session = require("express-session"),
+  { getapi } = require("./JavascriptFiles/quotes"),
+  { getMemes } = require("./JavascriptFiles/memes"),
+  { fetchWeather } = require("./JavascriptFiles/weather");
+const { ObjectId } = require("mongodb");
+const NodeGeocoder = require("node-geocoder");
 
+let userZipCode;
 
 //const { session, authenticate } = require('passport');
 
@@ -41,41 +44,34 @@ db.on("error", (err) => {
 });
 //---------------------------------------------------------------
 
-
 async function getUserByEmail(email) {
-  const user = await  Signup.find({ email}) 
+  const user = await Signup.find({ email });
   return user[0];
 }
 
 async function getUserbyId(id) {
-  const user = await  Signup.findById(id)
+  const user = await Signup.findById(id);
   return user;
 }
-initializePassport(
-  passport, 
-  getUserByEmail,
-  getUserbyId,
-)
-
-
-
+initializePassport(passport, getUserByEmail, getUserbyId);
 
 app.set("view engine", "ejs");
 //Body parser must be placed before CRUD operations
-app.use(express.urlencoded({extended: false }))
+app.use(express.urlencoded({ extended: false }));
 
-app.use(express.json())
-app.use(flash())
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false
-}))
-app.use(passport.initialize())
-app.use(passport.session())
-app.use(methodOverride('_method'))
-app.use(express.static('./public'))
-
+app.use(express.json());
+app.use(flash());
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(methodOverride("_method"));
+app.use(express.static("./public"));
 
 //HOME PAGE
 //If the user is already authenticated, they will be directored to their dashboard
@@ -93,12 +89,16 @@ app.get("/weather", async (req, res) => {
   res.send(weatherDetails);
 });
 //Handling user login
-app.post("/login", checkNotAuthenticated, passport.authenticate("local", {
-  successRedirect: "/dashboard",
-  failureRedirect: "/login",
-  failureFlash: true
-  }), function (req, res) {
-});
+app.post(
+  "/login",
+  checkNotAuthenticated,
+  passport.authenticate("local", {
+    successRedirect: "/dashboard",
+    failureRedirect: "/login",
+    failureFlash: true,
+  }),
+  function (req, res) {}
+);
 
 //REGISTER FORM or sign up page
 app.get("/register", checkNotAuthenticated, function (req, res) {
@@ -114,25 +114,27 @@ app.post("/register", checkNotAuthenticated, async function (req, res) {
     //10 is the amount of times the hash is generated
     //10 allows the hash to be performed quickly, yet still be secure
 
-
-    const hashedPassword = await bcrypt.hash(req.body.password, 10)
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
     const newUser = new Signup({
-        //taking form input and pushing it to our DB
+      //taking form input and pushing it to our DB
       first_name: req.body.first_name,
       middle_name: req.body.middle_name,
       last_name: req.body.last_name,
       email: req.body.email,
       phone_number: req.body.phone_number,
       birthday: req.body.birthday,
-      password: hashedPassword
-      })
+      password: hashedPassword,
+    });
 
-      newUser.save().then((user) => console.log(user)).catch((err) => console.log(err));
+    newUser
+      .save()
+      .then((user) => console.log(user))
+      .catch((err) => console.log(err));
     //successful registration takes you to register
-    res.redirect('login')
-  } catch (err)  {
-    console.log(err)
+    res.redirect("login");
+  } catch (err) {
+    console.log(err);
     //unsuccessful registration leaves you in this page
     res.redirect("/register");
   }
