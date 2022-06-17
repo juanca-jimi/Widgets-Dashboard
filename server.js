@@ -17,20 +17,6 @@ const express = require('express'),
       { getapi } = require('./JavascriptFiles/quotes'),
       { getMemes } = require("./JavascriptFiles/memes"),
       { fetchWeather } = require("./JavascriptFiles/weather");
-const { ObjectId } = require('mongodb');
-const express = require("express"),
-  Signup = require("./models/Signup"),
-  mongoose = require("mongoose"),
-  login = require("./models/Login"),
-  passport = require("passport"),
-  initializePassport = require("./passport-config"),
-  cors = require("cors"),
-  bcrypt = require("bcrypt"),
-  passportLocalMongoose = require("passport-local-mongoose"),
-  methodOverride = require("method-override"),
-  flash = require("express-flash"),
-  session = require("express-session"),
-  { getapi } = require("./JavascriptFiles/quotes"),
 
 //const { session, authenticate } = require('passport');
 
