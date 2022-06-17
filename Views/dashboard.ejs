@@ -179,7 +179,7 @@
             <div class="card">
               <h2><%=ranMeme.name%></h2>
               <div class="card_body">
-                  <img src="<%= ranMeme.url %>" alt="<%=ranMeme.name%>">
+                  <img id="memeUrl" src="<%= ranMeme.url %>" alt="<%=ranMeme.name%>">
               </div>
             </div>
          
@@ -188,14 +188,8 @@
             <div class="card_note">
               <h2 style="margin:0%">My Notes</h2>
             </div>
-            <div id="my_notes" style="height:87%" class="card_body">
-              <textarea style="font-family:'Courier New', Courier, monospace">
-                I shall be telling this with a sigh
-                Somewhere ages and ages hence:
-                Two roads diverged in a wood, and I—
-                I took the one less traveled by,
-                And that has made all the difference.
-              </textarea>
+            <div id="my_notes"  class="card_body">
+              <textarea id="noteText">CRUD (Create, Read, Update, Delete) is an acronym for ways one can operate on stored data. It is a mnemonic for the four basic functions of persistent storage. CRUD typically refers to operations performed in a database or datastore, but it can also apply to higher level functions of an application such as soft deletes where data is not actually deleted but marked as deleted via a status.</textarea>
             </div>
           </div>
           <div class="api_box bordered_box">

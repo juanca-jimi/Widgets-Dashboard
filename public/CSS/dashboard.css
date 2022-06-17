@@ -156,10 +156,23 @@ textarea {
   text-align: center;
 }
 
-#my_notes {
-  margin-right: 5px;
-}
-
 #weatherDetailsContainer {
   font-family: cursive;
+}
+
+#memeUrl {
+  height: 292px;
+  width: 288px;
+}
+
+#my_notes {
+  height: 89%;
+  text-align: left;
+}
+
+#noteText {
+  font-family: "Courier New", Courier, monospace;
+  text-align: left;
+  margin: 0px;
+  padding: 0.4em;
 }
