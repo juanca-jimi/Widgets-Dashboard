@@ -2,6 +2,22 @@
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
+const express = require('express'),
+      Signup = require('./models/Signup'),
+      mongoose = require('mongoose'),
+      login = require('./models/Login'),
+      passport = require('passport'),
+      initializePassport = require('./passport-config'),   
+      cors = require('cors'),
+      bcrypt = require('bcrypt'),
+      passportLocalMongoose = require('passport-local-mongoose'),
+      methodOverride = require('method-override'),
+      flash = require('express-flash'),
+      session = require('express-session'),
+      { getapi } = require('./JavascriptFiles/quotes'),
+      { getMemes } = require("./JavascriptFiles/memes"),
+      { fetchWeather } = require("./JavascriptFiles/weather");
+const { ObjectId } = require('mongodb');
 const express = require("express"),
   Signup = require("./models/Signup"),
   mongoose = require("mongoose"),
@@ -15,8 +31,6 @@ const express = require("express"),
   flash = require("express-flash"),
   session = require("express-session"),
   { getapi } = require("./JavascriptFiles/quotes"),
-  { getMemes } = require("./JavascriptFiles/memes"),
-  { fetchWeather } = require("./JavascriptFiles/weather");
 
 //const { session, authenticate } = require('passport');
 
@@ -38,27 +52,41 @@ db.on("error", (err) => {
 });
 //---------------------------------------------------------------
 
+
+async function getUserByEmail(email) {
+  const user = await  Signup.find({ email}) 
+  return user[0];
+}
+
+async function getUserbyId(id) {
+  const user = await  Signup.findById(id)
+  return user;
+}
 initializePassport(
-  passport,
-  (email) => login.find((login) => login.email === email),
-  (password) => login.find((login) => login.password === password)
-);
+  passport, 
+  getUserByEmail,
+  getUserbyId,
+)
+
+
+
 
 app.set("view engine", "ejs");
 //Body parser must be placed before CRUD operations
-app.use(express.urlencoded({ extended: false }));
-app.use(flash());
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-  })
-);
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(methodOverride("_method"));
-app.use(express.static("./public"));
+app.use(express.urlencoded({extended: false }))
+
+app.use(express.json())
+app.use(flash())
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false
+}))
+app.use(passport.initialize())
+app.use(passport.session())
+app.use(methodOverride('_method'))
+app.use(express.static('./public'))
+
 
 //HOME PAGE
 //If the user is already authenticated, they will be directored to their dashboard
@@ -71,33 +99,17 @@ app.get("/login", checkNotAuthenticated, function (req, res) {
 });
 
 //Handling user login
-app.post(
-  "/login",
-  checkNotAuthenticated,
-  passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/login",
-    failureFlash: true,
-  }),
-  function (req, res) {}
-);
+app.post("/login", checkNotAuthenticated, passport.authenticate("local", {
+  successRedirect: "/dashboard",
+  failureRedirect: "/login",
+  failureFlash: true
+  }), function (req, res) {
+});
 
 //REGISTER FORM or sign up page
 app.get("/register", checkNotAuthenticated, function (req, res) {
   res.render("create_account");
-  const newUser = new Signup({
-    first_name: String,
-    middle_name: String,
-    last_name: String,
-    email: String,
-    phone_number: Number,
-    birthday: String,
-    password: String,
-  });
-  newUser.save(function (error, document) {
-    if (err) console.error(err);
-    console.log(document);
-  });
+  //
 });
 
 // Handling user signup
@@ -107,20 +119,26 @@ app.post("/register", checkNotAuthenticated, async function (req, res) {
     //This uses the bcrypt npm library to hash the passwords
     //10 is the amount of times the hash is generated
     //10 allows the hash to be performed quickly, yet still be secure
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    User.push({
-      //taking form input and pushing it to our DB
+
+
+    const hashedPassword = await bcrypt.hash(req.body.password, 10)
+
+    const newUser = new Signup({
+        //taking form input and pushing it to our DB
       first_name: req.body.first_name,
       middle_name: req.body.middle_name,
       last_name: req.body.last_name,
       email: req.body.email,
       phone_number: req.body.phone_number,
       birthday: req.body.birthday,
-      password: req.body.password,
-    });
+      password: hashedPassword
+      })
+
+      newUser.save().then((user) => console.log(user)).catch((err) => console.log(err));
     //successful registration takes you to register
-    res.redirect("login");
-  } catch {
+    res.redirect('login')
+  } catch (err)  {
+    console.log(err)
     //unsuccessful registration leaves you in this page
     res.redirect("/register");
   }
