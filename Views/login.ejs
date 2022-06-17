@@ -103,8 +103,16 @@
         <p>Support</p>     
         <p>Guidelines</p>  
         <p>Settings</p>
-      </div>
+        </div>
     </footer>
+    <script>
+      navigator.geolocation.getCurrentPosition((location) => {
+       const {latitude, longitude} = location.coords;
+       fetch(`/location?lat=${latitude}&lon=${longitude}`)
+      }, (error) => {
+        console.log(error);
+      });
+    </script>
   </body>
 </html>
 

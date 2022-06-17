@@ -6,20 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
     <!-- bootstrap link -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
-      crossorigin="anonymous"
-    />
-
-    <!-- masonry link -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
-      integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D"
-      crossorigin="anonymous"
-      async
-    ></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
     <!-- CSS link -->
     <link rel="stylesheet" href="../CSS/dashboard.css" />
@@ -127,16 +115,16 @@
             </div>
           </div>
         </div>
-        <div id="carosel" class="left_children carousel slide" data-ride="carousel">
+        <div id="carouselExampleSlidesOnly" class="left_children carousel slide" data-ride="carousel">
           <div class="carousel-inner">
             <div class="carousel-item active" data-bs-interval="5000">
-              <img class="d-block w-100" src="../imagesXicons/carosel-1.jpg" alt="First slide">
+              <img class="d-block w-100" height="615px" src="../imagesXicons/carosel-1.jpg" alt="First slide">
             </div>
             <div class="carousel-item" data-bs-interval="5000">
-              <img class="d-block w-100" src="../imagesXicons/carosel-2.jpg" alt="Second slide">
+              <img class="d-block w-100" height="615px" src="../imagesXicons/carosel-2.jpg" alt="Second slide">
             </div>
             <div class="carousel-item" data-bs-interval="5000">
-              <img class="d-block w-100" src="../imagesXicons/carosel-3.jpg" alt="Third slide">
+              <img class="d-block w-100 " height="615px" src="../imagesXicons/carosel-3.jpg" alt="Third slide">
             </div>
           </div>
         </div>
@@ -147,7 +135,7 @@
             <h2 id="bookmark">My Bookmarks</h2>
           </div>
           <div class="card_body">
-            <textarea></textarea>
+            <textarea id="bookmarkId"></textarea>
           </div>
         </div>
         <div id="bottom_right_child">
@@ -183,12 +171,18 @@
                 <p><%=quotes[i].q%></p>
                 <p><%=quotes[i].a%></p>
                 <% } %>
-         
             </div>
           </div>
           <div class="api_box bordered_box">
-            <div class="card"></div>
-            <div class="card_body"></div>
+            <% const ranIndex = Math.floor(Math.random() * memeZ.length) %>
+            <% const ranMeme = memeZ[ranIndex] %>
+            <div class="card">
+              <h2><%=ranMeme.name%></h2>
+              <div class="card_body">
+                  <img src="<%= ranMeme.url %>" alt="<%=ranMeme.name%>">
+              </div>
+            </div>
+         
           </div>
           <div class="api_box bordered_box">
             <div class="card_note">
@@ -199,8 +193,23 @@
             </div>
           </div>
           <div class="api_box bordered_box">
-            <div class="card"></div>
-            <div class="card_body"></div>
+            <div class="card">
+              <input id="weatherZip" placeholder="enter zip code to get weather" type="text">
+              <div id="weatherDetailsContainer">
+                <% if(weatherDetails !== undefined) {%>
+                  <p id="weaTemp"><%= weatherDetails.main.temp %></p>
+                  <p id="feelsLike"><%= weatherDetails.main.feels_like %></p>
+                  <p id="minTemp"><%= weatherDetails.main.temp_min %></p>
+                  <p id="maxTemp"><%= weatherDetails.main.temp_max %></p>
+                  <p id="pressure"><%= weatherDetails.main.pressure %></p>
+                  <p id="humidity"><%= weatherDetails.main.humidity %></p>
+                  <% } %>
+              </div>
+              
+            </div>
+            <div class="card_body">
+              
+            </div>
           </div>
           <div class="api_box bordered_box">
             <div class="card"></div>
@@ -223,5 +232,48 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+
+    <script>
+      document.getElementById("weatherZip").addEventListener("keypress", function(e){
+        if (e.key === "Enter"){
+          const zip = e.target.value;
+          console.log(zip);
+          e.target.value = ""
+          fetch(`/weather?zip=${zip}`)
+          .then(res => res.json())
+          .then(data => {
+            console.log(data);
+            const temp = data.main.temp;
+            const feelsLikeTemp = data.main.feels_like;
+            const minTempVal = data.main.temp_min
+            const maxTempVal = data.main.temp_max
+            const pressureVal = data.main.pressure
+            const humidityVal = data.main.humidity
+            const weatherContainer = document.getElementById("weatherDetailsContainer")
+            if(weatherContainer.children.length !== 0) {
+              document.getElementById("weaTemp").innerText = temp
+              document.getElementById("feelsLike").innerText = feelsLikeTemp
+              document.getElementById("minTemp").innerText = minTempVal
+              document.getElementById("maxTemp").innerText = maxTempVal
+              document.getElementById("pressure").innerText = pressureVal
+              document.getElementById("humidity").innerText = humidityVal
+
+            }
+            else {
+              weatherContainer.innerHTML = `
+                <p id="weaTemp">Temperature : ${temp} F</p>
+                <p id="feelsLike">Feels Like :  ${feelsLikeTemp} F</p>
+                <p id="minTemp">Min Temperature : ${minTempVal} F</p> 
+                <p id="maxTemp">Max Temperature : ${maxTempVal} F</p> 
+                <p id="pressure">Max Pressure : ${pressureVal} hPa</p> 
+                <p id="pressure">Humidity : ${humidityVal} %</p> 
+              `
+            }
+
+            
+          })
+        }
+      })
+    </script>
   </body>
 </html>
