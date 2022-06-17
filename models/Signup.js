@@ -8,9 +8,10 @@ const signupSchema = new Schema({
     middle_name: String,
     last_name: String,
     email: String,
-    phone_number: Number,
+    phone_number: String,
     birthday: String, //TODO: Decide whether it's better to store this as a string, number or object
     password: String,
+
 })
 
 

@@ -15,6 +15,7 @@ const express = require('express'),
       flash = require('express-flash'),
       session = require('express-session'),
  { getapi } = require('./JavascriptFiles/quotes');
+const { ObjectId } = require('mongodb');
 
 //const { session, authenticate } = require('passport');
 
@@ -33,11 +34,19 @@ db.on('error', err => {console.error('connection error:', err)})
 //---------------------------------------------------------------
 
 
+async function getUserByEmail(email) {
+  const user = await  Signup.find({ email}) 
+  return user[0];
+}
 
+async function getUserbyId(id) {
+  const user = await  Signup.findById(id)
+  return user;
+}
 initializePassport(
   passport, 
-  email => login.find(login => login.email === email),
-  password => login.find(login => login.password === password)
+  getUserByEmail,
+  getUserbyId,
 )
 
 
@@ -46,6 +55,8 @@ initializePassport(
 app.set("view engine", "ejs");
 //Body parser must be placed before CRUD operations
 app.use(express.urlencoded({extended: false }))
+
+app.use(express.json())
 app.use(flash())
 app.use(session({
   secret: process.env.SESSION_SECRET,
@@ -71,7 +82,7 @@ app.get("/login", checkNotAuthenticated, function (req, res) {
 
 //Handling user login
 app.post("/login", checkNotAuthenticated, passport.authenticate("local", {
-  successRedirect: "/",
+  successRedirect: "/dashboard",
   failureRedirect: "/login",
   failureFlash: true
   }), function (req, res) {
@@ -80,19 +91,7 @@ app.post("/login", checkNotAuthenticated, passport.authenticate("local", {
 //REGISTER FORM or sign up page
 app.get("/register", checkNotAuthenticated, function (req, res) {
   res.render("create_account");
-  const newUser = new Signup({
-    first_name: String,
-    middle_name: String,
-    last_name: String,
-    email: String,
-    phone_number: Number,
-    birthday: String, 
-    password: String,
-  })
-  newUser.save(function (error, document){
-    if (err) console.error(err)
-    console.log(document)
-  })
+  //
 });
 
 // Handling user signup
@@ -102,20 +101,26 @@ app.post("/register", checkNotAuthenticated, async function (req, res) {
     //This uses the bcrypt npm library to hash the passwords
     //10 is the amount of times the hash is generated
     //10 allows the hash to be performed quickly, yet still be secure
+
+
     const hashedPassword = await bcrypt.hash(req.body.password, 10)
-    User.push({
-      //taking form input and pushing it to our DB
+
+    const newUser = new Signup({
+        //taking form input and pushing it to our DB
       first_name: req.body.first_name,
       middle_name: req.body.middle_name,
       last_name:req.body.last_name,
       email: req.body.email,
       phone_number: req.body.phone_number,
       birthday: req.body.birthday,
-      password: req.body.password
-    })
+      password: hashedPassword
+      })
+
+      newUser.save().then((user) => console.log(user)).catch((err) => console.log(err));
     //successful registration takes you to register
     res.redirect('login')
-  } catch  {
+  } catch (err)  {
+    console.log(err)
     //unsuccessful registration leaves you in this page
     res.redirect('/register')
   }
